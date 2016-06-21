@@ -1,4 +1,4 @@
-use url::{Url, UrlParser};
+use url::Url;
 use rustc_serialize::{json};
 use hyper::error::Error;
 
@@ -29,33 +29,33 @@ pub struct SolrClient {
 impl SolrClient {
 
     fn build_update_url(url: &Url) -> Url{
-        let mut url_parser = UrlParser::new();
-        url_parser.base_url(url).parse("./update").unwrap()
+        let mut url_parser = Url::parse(url.as_str()).unwrap();
+        url_parser.join("./update").unwrap()
     }
 
     fn build_select_url(url: &Url) -> Url {
-        let mut url_parser = UrlParser::new();
-        url_parser.base_url(url).parse("./select").unwrap()
+        let mut url_parser = Url::parse(url.as_str()).unwrap();
+        url_parser.join("./select").unwrap()        
     }
 
     fn build_commit_url(url: &Url) -> Url {
-        let mut url_parser = UrlParser::new();
-        url_parser.base_url(url).parse("./update?commit=true").unwrap()
+        let mut url_parser = Url::parse(url.as_str()).unwrap();
+        url_parser.join("./update?commit=true").unwrap()         
     }
 
     fn build_ping_url(url: &Url) -> Url {
-        let mut url_parser = UrlParser::new();
-        url_parser.base_url(url).parse("./admin/ping?wt=json").unwrap()
+        let mut url_parser = Url::parse(url.as_str()).unwrap();
+        url_parser.join("./admin/ping?wt=json").unwrap()          
     }
 
     fn build_rollback_url(url: &Url) -> Url {
-        let mut url_parser = UrlParser::new();
-        url_parser.base_url(url).parse("./update?rollback=true").unwrap()
+        let mut url_parser = Url::parse(url.as_str()).unwrap();
+        url_parser.join("./update?rollback=true").unwrap()              
     }
 
     fn build_optimize_url(url: &Url) -> Url {
-        let mut url_parser = UrlParser::new();
-        url_parser.base_url(url).parse("./update?optimize=true").unwrap()
+        let mut url_parser = Url::parse(url.as_str()).unwrap();
+        url_parser.join("./update?optimize=true").unwrap()        
     }
 
     /// Creates a new instance of Solr.
@@ -85,8 +85,14 @@ impl SolrClient {
 
     /// Performs Solr query
     pub fn query(&self, query: &SolrQuery) -> SolrQueryResult {
+
         let mut query_url = self.select_url.clone();
-        query_url.set_query_from_pairs(query.to_pairs().iter().map(|&(ref x, ref y)| (&x[..], &y[..])));
+
+        for q in query.to_pairs() {
+            let (parameter, value) = q;
+            query_url.query_pairs_mut().append_pair(&parameter, &value);
+        }
+
         let http_result = http_utils::get(&query_url);
         handle_http_query_result(http_result)
     }
