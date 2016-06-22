@@ -61,7 +61,7 @@ impl Encodable for SolrDocument {
     }
 }
 
-impl fmt::Display for SolrField {
+impl fmt::Display for SolrValue {
     // This trait requires `fmt` with this exact signature.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         // Write strictly the first element into the supplied output
