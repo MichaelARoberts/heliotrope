@@ -73,7 +73,7 @@ impl fmt::Display for SolrValue {
             SolrValue::I64 => self,
             SolrValue::U64 => self,
             SolrValue::F64 => self,
-            SolrValue::String => self
+            SolrValue::String => self,
             SolrValue::Boolean => self,
             SolrValue::Null => self
         };
