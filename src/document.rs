@@ -1,5 +1,5 @@
 use rustc_serialize::{Encodable, Encoder};
-use std::fmt::{Display, Formatter, Error};
+use std::fmt;
 
 #[derive(Debug, PartialEq)]
 pub enum SolrValue {
