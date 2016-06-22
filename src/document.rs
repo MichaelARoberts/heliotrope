@@ -70,7 +70,12 @@ impl fmt::Display for SolrValue {
         // operation succeeded or failed. Note that `write!` uses syntax which
         // is very similar to `println!`.
         let printable = match *self {
+            SolrValue::I64 => self,
+            SolrValue::U64 => self,
+            SolrValue::F64 => self,
             SolrValue::String => self
+            SolrValue::Boolean => self,
+            SolrValue::Null => self
         };
         write!(f, "{}", printable)
     }
