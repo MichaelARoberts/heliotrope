@@ -77,6 +77,6 @@ impl fmt::Display for SolrValue {
         //     SolrValue::Boolean(bool) => &self,
         //     SolrValue::Null => &self
         // };
-        write!(f, "{}", *self)
+        write!(f, "{}", self)
     }
 }
