@@ -76,7 +76,7 @@ impl fmt::Display for SolrValue {
             SolrValue::String(ref val) => write!(f, "{}", val),
             SolrValue::Boolean(ref val) => write!(f, "{}", val),
             SolrValue::Null => write!(f, "{}", "NULL")
-        };
+        }
         
     }
 }
