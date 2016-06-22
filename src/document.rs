@@ -1,7 +1,7 @@
 use rustc_serialize::{Encodable, Encoder};
 use std::fmt;
 
-#[derive(Debug, PartialEq, Clone, Copy)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum SolrValue {
     I64(i64),
     U64(u64),
