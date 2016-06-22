@@ -1,7 +1,7 @@
 use rustc_serialize::{Encodable, Encoder};
 use std::fmt;
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub enum SolrValue {
     I64(i64),
     U64(u64),
@@ -69,7 +69,7 @@ impl fmt::Display for SolrValue {
         // stream: `f`. Returns `fmt::Result` which indicates whether the
         // operation succeeded or failed. Note that `write!` uses syntax which
         // is very similar to `println!`.
-        let printable = match self {
+        let printable = match *self {
             SolrValue::I64(i64) => &self,
             SolrValue::U64(u64) => &self,
             SolrValue::F64(f64) => &self,
